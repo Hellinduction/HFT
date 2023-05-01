@@ -49,7 +49,10 @@ public final class Main {
                     return;
                 }
 
-                transfer(file);
+                if (file.isDirectory())
+                    transferDir(file);
+                else
+                    transfer(file);
                 return;
             }
 
@@ -66,25 +69,22 @@ public final class Main {
         }
     }
 
+    private static void transferDir(final File dir) throws IOException {
+        Files.walk(Paths.get(dir.getAbsolutePath(), new String[0]), new FileVisitOption[0]).forEach(path -> {
+            try {
+                final File file = path.toFile();
+
+                if (file.isDirectory())
+                    return;
+
+                transfer(file);
+            } catch (final Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+    }
+
     private static void transfer(final File file) throws IOException {
-        final boolean isDir = file.isDirectory();
-
-        if (isDir) {
-            Files.walk(Paths.get(file.getAbsolutePath(), new String[0]), new FileVisitOption[0]).forEach(path -> {
-                try {
-                    final File f = path.toFile();
-
-                    if (f.isDirectory())
-                        return;
-
-                    transfer(f);
-                } catch (final Exception exception) {
-                    exception.printStackTrace();
-                }
-            });
-            return;
-        }
-
         final long size = file.length();
         final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
