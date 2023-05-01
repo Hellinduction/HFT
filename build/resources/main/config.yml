@@ -1,0 +1,16 @@
+mode: CLIENT # CLIENT/SERVER
+
+general: # This section is always used
+  host: localhost # Host of webserver
+  port: 43248 # Port of webserver
+
+client: # This section is only used when in CLIENT mode
+  protocol: http # http/https
+
+server: # This section is only used when in SERVER mode
+  ip-whitelist: # String list of ips the webserver allows
+    - 127.0.0.1
+    - 0.0.0.0
+    - localhost
+  root-file-path: "/" # The root of where the files are saved
+  override: false # Should it replace the file if it already exists?
