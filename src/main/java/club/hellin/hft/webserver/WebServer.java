@@ -34,9 +34,10 @@ public final class WebServer {
                     }
 
                     final String name = headers.getFirst("File-Name");
-                    final String dir = headers.getFirst("File-Location").replaceAll("/", File.separator).replaceAll("\\\\", File.separator);
+//                    System.out.println(headers.getFirst("File-Location"));
+//                    final String dir = headers.getFirst("File-Location");
 
-                    final File fileToSaveTo = new File(Main.rootFilePath, String.format("%s%s%s", dir, File.separator, name));
+                    final File fileToSaveTo = new File(Main.rootFilePath, String.format("%s", name));
 
                     if (fileToSaveTo.exists() && !Main.override) {
                         this.fail(exchange);
