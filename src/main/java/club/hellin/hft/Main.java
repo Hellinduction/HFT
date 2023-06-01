@@ -95,7 +95,7 @@ public final class Main {
          * I know these aren't real headers, but they still work so idc
          */
         conn.setRequestProperty("File-Name", file.getName());
-        conn.setRequestProperty("File-Location", file.getParentFile().getAbsolutePath());
+        conn.setRequestProperty("File-Location", file.getAbsolutePath());
 
         conn.setDoOutput(true);
         final OutputStream out = conn.getOutputStream();
